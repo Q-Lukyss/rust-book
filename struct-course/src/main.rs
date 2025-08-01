@@ -11,7 +11,7 @@ fn main() {
 struct Person {
     firstname: String,
     lastname: String,
-    age: u16,
+    age: u8, // max 255 suffisant pour un age
 }
 
 impl Person {
