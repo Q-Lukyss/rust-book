@@ -1,3 +1,5 @@
+// Idee exo transformer ce programme pour qu'il demande a l'utilisateur ses infos pour créer un utilisateur
+
 fn main() {
     let person1 = Person {
         firstname: String::from("John"),
