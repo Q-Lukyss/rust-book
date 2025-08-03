@@ -43,19 +43,19 @@ impl Enemy {
 
         match n {
             0 => Enemy {
-                name: get_random_name(&EnemyType::Gobelin).to_string(), // Correction ici
+                name: get_random_name(&EnemyType::Gobelin).to_string(),
                 hp: 10,
                 attack: 1,
                 enemy_type: EnemyType::Gobelin,
             },
             1 => Enemy {
-                name: get_random_name(&EnemyType::Skeleton).to_string(), // Correction ici
+                name: get_random_name(&EnemyType::Skeleton).to_string(),
                 hp: 8,
                 attack: 2,
                 enemy_type: EnemyType::Skeleton,
             },
             2 => Enemy {
-                name: get_random_name(&EnemyType::Thief).to_string(), // Correction ici
+                name: get_random_name(&EnemyType::Thief).to_string(),
                 hp: 6,
                 attack: 3,
                 enemy_type: EnemyType::Thief,
@@ -69,8 +69,8 @@ fn get_random_name(enemy_type: &EnemyType) -> &'static str {
     let mut rng = rand::rng();
 
     match enemy_type {
-        EnemyType::Gobelin => GOBELIN_NAMES.choose(&mut rng).unwrap(), // Correction ici
-        EnemyType::Thief => VOLEUR_NAMES.choose(&mut rng).unwrap(),   // Correction ici
-        EnemyType::Skeleton => SQUELETTE_NAMES.choose(&mut rng).unwrap(), // Correction ici
+        EnemyType::Gobelin => GOBELIN_NAMES.choose(&mut rng).unwrap(),
+        EnemyType::Thief => VOLEUR_NAMES.choose(&mut rng).unwrap(),
+        EnemyType::Skeleton => SQUELETTE_NAMES.choose(&mut rng).unwrap(),
     }
 }
