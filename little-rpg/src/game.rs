@@ -1,6 +1,6 @@
 use crate::state::GameState;
 use crate::player::Player;
-use crate::enemy::Enemy;
+use crate::enemy::{Enemy, EnemyType};
 
 pub fn run_game_loop(mut player: Player) {
     let mut state = GameState::Menu;
@@ -16,8 +16,13 @@ pub fn run_game_loop(mut player: Player) {
                 state = GameState::Combat;
             },
             GameState::Combat => {
-                let mut enemy = Enemy::spawn();
-                println!("Un {} apparaît ! Il s'agit de {}.", enemy.enemy_type.as_str(), enemy.name );
+                let mut enemy = Enemy::spawn(EnemyType::Gobelin);
+                if let Some(name) = &enemy.name {
+                    println!("Un {} apparaît ! Il s'agit de {}.", enemy.enemy_type.as_str(), name );
+                }
+                else {
+                    println!("Un {} apparaît !", enemy.enemy_type.as_str());
+                }
 
                 while enemy.hp > 0 && player.hp.0 > 0 {
                     println!("Tu frappes !");
