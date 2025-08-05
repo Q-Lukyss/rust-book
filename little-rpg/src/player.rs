@@ -28,6 +28,9 @@ impl Player {
 
     pub fn take_dmg(&mut self, amount : i32){
         self.hp.0 -= amount;
+        if self.hp.0 <= 0 {
+            self.hp.0 = 0
+        }
         println!("Il te reste {} hp",self.hp.0);
     }
 
