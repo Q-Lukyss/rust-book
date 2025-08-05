@@ -19,7 +19,7 @@ pub fn run_game_loop(mut player: Player) {
                 let mut enemy = Enemy::spawn();
                 println!("Un {} apparaît ! Il s'agit de {}.", enemy.enemy_type.as_str(), enemy.name );
 
-                while enemy.hp > 0 && player.hp > 0 {
+                while enemy.hp > 0 && player.hp.0 > 0 {
                     println!("Tu frappes !");
                     player.attack(&mut enemy);
                     if enemy.hp > 0 {
@@ -27,7 +27,7 @@ pub fn run_game_loop(mut player: Player) {
                         player.take_dmg(enemy.attack)
                     }
                 }
-                if player.hp <= 0 {
+                if player.hp.0 <= 0 {
                     state = GameState::GameOver;
                 } else {
                     state = GameState::Exploration;
