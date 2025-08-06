@@ -1,5 +1,7 @@
 # 🧙 Little-RPG - Jeu de rôle CLI en Rust
 
+![Rust Version](https://img.shields.io/badge/Rust-1.88-orange?logo=rust&logoColor=white&style=for-the-badge)
+
 > Un projet en ligne de commande écrit en Rust, inspiré des mécaniques de RPG classiques et modernes (Dark Souls, roguelike, RPG papier). Le jeu combine narration, exploration, combat stratégique, loot et évolution du personnage.
 
 ---
