@@ -49,6 +49,16 @@ impl EnemyRank {
             EnemyRank::Legendary => 10.0,
         }
     }
+
+    pub fn xp_reward(&self) -> u32 {
+        match self {
+            EnemyRank::Lambda => 20,
+            EnemyRank::Named => 50,
+            EnemyRank::Elite => 100,
+            EnemyRank::Boss => 200,
+            EnemyRank::Legendary => 500,
+        }
+    }
 }
 
 #[derive(Debug, Eq, PartialEq, Hash, Clone, Copy)]
@@ -108,7 +118,7 @@ impl Enemy {
     }
 
     /// Méthode utilitaire pour créer un ennemi à partir d'un type et rang donnés
-    fn spawn_with_type_and_rank(enemy_type: EnemyType, rank: EnemyRank) -> Self {
+    pub fn spawn_with_type_and_rank(enemy_type: EnemyType, rank: EnemyRank) -> Self {
         let mut rng = rand::rng();
 
         let name = ENEMY_NAMES
