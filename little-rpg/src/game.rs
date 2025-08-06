@@ -80,7 +80,6 @@ pub fn run_game_loop(mut player: Player) {
                     }
                 }
 
-                // gérer l'xp
                 let mut enemy = Enemy::spawn_with_type_and_rank(enemy_type, enemy_rank);
                 if let Some(name) = &enemy.name {
                     println!("Un {} apparaît ! Il s'agit de {}.", enemy.enemy_type.as_str(), name );
@@ -100,6 +99,7 @@ pub fn run_game_loop(mut player: Player) {
                 if player.hp.0 <= 0 {
                     state = GameState::GameOver;
                 } else {
+                    // gérer l'xp
                     player.gain_xp(enemy.rank.xp_reward());
                     state = GameState::Menu;
                 }
