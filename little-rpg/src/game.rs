@@ -33,52 +33,47 @@ pub fn run_game_loop(mut player: Player) {
             },
             GameState::Combat => {
                 // choisir le type
-                println!("=== PREPARATION AU COMBAT ===");
                 println!("=== Phase 1 ===");
-                println!("Choisir un Type d'enemi.");
-                println!("Tapez :");
-                println!("1. pour Gobelin");
-                println!("2. pour Squelette");
-                println!("3. pour Bandit");
+                println!("Choisir un Type d'ennemi.");
+                println!("1. Gobelin");
+                println!("2. Squelette");
+                println!("3. Bandit");
 
-                let mut input_enemy_type = String::new();
-                io::stdin().read_line(&mut input_enemy_type).unwrap();
-                let mut enemy_type : EnemyType = EnemyType::Gobelin;
+                let enemy_type: EnemyType = loop {
+                    let mut input = String::new();
+                    io::stdin().read_line(&mut input).unwrap();
 
-                match input_enemy_type.trim() {
-                    "1" => enemy_type = EnemyType::Gobelin,
-                    "2" => enemy_type = EnemyType::Skeleton,
-                    "3" => enemy_type = EnemyType::Human,
-                    _ => {
-                        println!("Choix invalide");
-                        state = GameState::Combat;
+                    match input.trim() {
+                        "1" => break EnemyType::Gobelin,
+                        "2" => break EnemyType::Skeleton,
+                        "3" => break EnemyType::Human,
+                        _ => println!("Choix invalide, recommence."),
                     }
-                }
+                };
+
                 // choisir le rang
                 println!("=== Phase 2 ===");
-                println!("Choisir un Rang d'enemi.");
-                println!("Tapez :");
-                println!("1. pour Lambda");
-                println!("2. pour Nommé");
-                println!("3. pour Elite");
-                println!("4. pour Boss");
-                println!("5. pour Legendaire");
+                println!("Choisir un Rang d'ennemi.");
+                println!("1. Lambda");
+                println!("2. Nommé");
+                println!("3. Elite");
+                println!("4. Boss");
+                println!("5. Légendaire");
 
-                let mut input_enemy_rank = String::new();
-                io::stdin().read_line(&mut input_enemy_rank).unwrap();
-                let mut enemy_rank : EnemyRank = EnemyRank::Lambda;
+                let enemy_rank: EnemyRank = loop {
 
-                match input_enemy_rank.trim() {
-                    "1" => enemy_rank = EnemyRank::Lambda,
-                    "2" => enemy_rank = EnemyRank::Named,
-                    "3" => enemy_rank = EnemyRank::Elite,
-                    "4" => enemy_rank = EnemyRank::Boss,
-                    "5" => enemy_rank = EnemyRank::Legendary,
-                    _ => {
-                        println!("Choix invalide");
-                        state = GameState::Combat;
+                    let mut input = String::new();
+                    io::stdin().read_line(&mut input).unwrap();
+
+                    match input.trim() {
+                        "1" => break EnemyRank::Lambda,
+                        "2" => break EnemyRank::Named,
+                        "3" => break EnemyRank::Elite,
+                        "4" => break EnemyRank::Boss,
+                        "5" => break EnemyRank::Legendary,
+                        _ => println!("Choix invalide, recommence."),
                     }
-                }
+                };
 
                 let mut enemy = Enemy::spawn_with_type_and_rank(enemy_type, enemy_rank);
                 if let Some(name) = &enemy.name {
