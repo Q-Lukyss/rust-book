@@ -2,6 +2,7 @@ mod game;
 mod player;
 mod enemy;
 mod state;
+mod inventory;
 
 use crate::player::Player;
 use crate::game::run_game_loop;
