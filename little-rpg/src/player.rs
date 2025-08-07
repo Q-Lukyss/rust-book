@@ -4,7 +4,7 @@ pub struct Player {
     pub hp: (i32, i32),
     pub attack: i32,
     pub level: u32,
-    pub xp : u32
+    pub xp : (u32, u32)
 }
 impl Player {
     pub fn new(name: String) -> Self {
@@ -13,8 +13,12 @@ impl Player {
             hp: (20,20),
             attack: 5,
             level: 1,
-            xp : 0
+            xp : (0 , 100)
         }
+    }
+
+    fn set_xp_to_level_up(&mut self) {
+        self.xp.1 = self.level * 100
     }
 
     pub fn attack(&self, enemy: &mut Enemy) -> bool {
@@ -36,19 +40,19 @@ impl Player {
 
     pub fn gain_xp(&mut self, amount : u32){
         println!("Vous avez gagné {} points d'xp", amount);
-        self.xp += amount;
-        let mut xp_to_level_up = self.level * 100;
+        self.xp.0 += amount;
+        let xp_to_level_up = self.xp.1;
 
-        while self.xp >= xp_to_level_up {
-            self.xp -= xp_to_level_up;
+        while self.xp.0 >= xp_to_level_up {
+            self.xp.0 -= xp_to_level_up;
             self.level_up();
-            xp_to_level_up = self.level * 100; // recalcul si plusieurs niveaux d'un coup
         }
     }
 
     pub fn level_up(&mut self){
         // on gagne un lv
         self.level += 1;
+        self.set_xp_to_level_up();
         // on se heal max life et on gagne 1 pv
         self.hp.1 += 1;
         self.hp.0 = self.hp.1;
@@ -57,6 +61,7 @@ impl Player {
         println!("{} a gagné un niveau !", self.name);
         println!("Toutes les stats ont pris +1");
         println!("PV soignés au max {}", self.hp.1);
+        println!("Xp : {} / {}", self.xp.0, self.xp.1);
     }
 
     
