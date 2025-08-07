@@ -172,7 +172,7 @@ pub fn run_game_loop(mut player: Player) {
                     state = GameState::GameOver;
                 } else {
                     player.gain_xp(enemy.rank.xp_reward());
-                    state = GameState::Menu;
+                    state = GameState::Exploration;
                 }
         
             },
