@@ -1,5 +1,6 @@
 use super::{EnemyRank, EnemyType};
 
+#[derive(Debug, Clone)]
 pub struct Enemy {
     pub name: Option<String>,
     pub hp: i32,
