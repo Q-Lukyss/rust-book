@@ -21,10 +21,6 @@
 - [x] Structuration des entités `Player` et `Enemy`
 - [x] Système de combat de base
 - [x] Expérience (XP) et montée de niveau
-- [ ] Système de coups critiques
-- [ ] Loot d’objets et d’XP à la mort d’un ennemi
-
-### ⚔️ Phase 2 – Progression & profondeur
 - [x] Inventaire du joueur (objets, potions)
 - [x] Équipement (armes, armures, accessoires)
 - [x] Types d’ennemis :
@@ -32,11 +28,27 @@
   - Nommés
   - Élites
   - Légendaires
+- [ ] Système de coups critiques / differentes stats HP, Crit, Vigueure (pour blocage par ex ou Endurance)
+- [ ] Cheat code `demonic_eye` (tue tous les ennemis dans la salle actuelle)
+
+
+### ⚔️ Phase 2 – Progression & profondeur
+
+- [ ] Loot d’objets et d’XP à la mort d’un ennemi
+- [ ] Systeme de une et deux main pour armes et bouclier
+- [ ] blocage et parade ex bouclier bloque un certain pourcentage, une longsword moins
+- [ ] systeme de choix attaque vs defense ? type pierre feuille ciseaux ?
+  - Idee d'un systeme ou l'ennemi peut lancer une attaque normale ou par exemple p60 vs e80 le player prends 20 degat
+  - si player choisis de defendre il bloque une partie des 80 et riposte automatiquement ?
+  - si player attaque un ennemie qui se defend alors c'est l'ennemie qui riposte
+  - voir pour ia ennemy ?
+  - pattern d attaque selon les enemies ? avec les lambda identique et par exemple les autres varient plus ?
 - [ ] Ressources secondaires : vitalité, blocage, attaque
-- [ ] Système de zones
-- [ ] Systeme de Capacité d'Ennemi
+
 
 ### 🧭 Phase 3 – Exploration et navigation
+- [ ] Système de zones
+- [ ] Systeme de Capacité d'Ennemi
 - [ ] Menus de navigation (explorer, stats, quitter…)
 - [ ] Syteme de Donjons
 - [ ] Salles de combat ou d’événement
@@ -45,7 +57,6 @@
 ### 📜 Phase 4 – Immersion & narration
 - [ ] Texte d’introduction et narration dynamique
 - [ ] Succès / exploits (ex. battre un légendaire, finir sans soins…)
-- [ ] Cheat code `demonic_eye` (tue tous les ennemis dans la salle actuelle)
 
 ### 🏆 Phase 5 – Fin & post-game
 - [ ] Sauvegarde et chargement de partie (via `serde_json`)
