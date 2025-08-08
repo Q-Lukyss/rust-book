@@ -29,7 +29,7 @@
   - Élites
   - Légendaires
 - [ ] Système de coups critiques / differentes stats HP, Crit, Vigueure (pour blocage par ex ou Endurance)
-- [ ] Cheat code `demonic_eye` (tue tous les ennemis dans la salle actuelle)
+- [x] Cheat code `demonic_eye` (tue tous les ennemis dans la salle actuelle)
 
 
 ### ⚔️ Phase 2 – Progression & profondeur

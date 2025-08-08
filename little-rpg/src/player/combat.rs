@@ -28,4 +28,15 @@ impl Player {
         println!("Tu équipes une nouvelle arme : {:?}, dmg : {}", weapon.kind, weapon.base_damage);
         self.equiped_weapon = weapon;
     }
+
+    //SECRET POWER DEMONIC_EYE
+    pub fn demonic_eye(&self, enemy: &mut Enemy){
+        println!("Une douleur soudaine s'empare de vous!");
+        println!("Votre Oeil ! une lueur rouge s'en echappe !");
+        println!("Vos forces vous abandonnent soudainement...");
+        println!("...");
+        println!("Les ennemis sont consumes par un mysterieux pouvoir");
+
+        enemy.hp = 0;
+    }
 }

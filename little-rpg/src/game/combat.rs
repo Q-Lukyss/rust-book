@@ -76,6 +76,9 @@ pub fn run(player: &mut Player, mut enemy: Enemy) -> GameState {
             "3" => {
                 println!("Tu prends la fuite !");
                 next_state = Some(GameState::Exploration);
+            },
+            "demonic_eye" => {
+                player.demonic_eye(&mut enemy)
             }
             _ => {
                 println!("Commande invalide !");
