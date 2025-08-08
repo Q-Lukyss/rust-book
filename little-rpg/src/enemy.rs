@@ -1,36 +1,40 @@
 use rand::Rng;
 use rand::prelude::IndexedRandom; // Import nécessaire pour la méthode choose
-use std::collections::HashMap;
 use once_cell::sync::Lazy;
+use serde::Deserialize;
+use std::{fs, path::Path};
 
-pub static ENEMY_NAMES: Lazy<HashMap<EnemyType, HashMap<EnemyRank, Vec<&'static str>>>> = Lazy::new(|| {
-    HashMap::from([
-        // Gobelins
-        (EnemyType::Gobelin, HashMap::from([
-            (EnemyRank::Named, vec![ "Gribz", "Zug", "Snark", "Grobnar", "Blix", "Druk", "Rikrik", "Glim", "Zoz", "Nark"]),
-            (EnemyRank::Elite, vec!["Grum le Cruel", "Zkro le Methodiste", "Thrag le Brutal", "Makgorah l'Invaincu"]),
-            (EnemyRank::Boss, vec!["Skarn le Destructeur", "Gorath l'ancien"]),
-            (EnemyRank::Legendary, vec!["Gnorlax le père de toute choses", "Gshlomog la main d'or"]),
-        ])),
-        // Squelettes
-        (EnemyType::Skeleton, HashMap::from([
-            (EnemyRank::Named, vec!["Osram", "Clatter", "Drybone", "Rattle", "Marrow", "Skorn", "Bonelord", "Grimjaw", "Skarn", "Femur"]),
-            (EnemyRank::Elite, vec!["Seigneur Fémur", "Capitaine Tibia", "Karg l’Osseux", "Morbius", ]),
-            (EnemyRank::Boss, vec!["Archiliche Noctis"]),
-            (EnemyRank::Legendary, vec!["Le Roi-Liche Eternel"]),
-        ])),
-        // Humains
-        (EnemyType::Human, HashMap::from([
-            (EnemyRank::Named, vec!["Silas", "Nyra", "Vex", "Kael", "Shade", "Lira", "Raze", "Dorin", "Thorne", "Nim"]),
-            (EnemyRank::Elite, vec!["Valtor l’Ombre", "Sir Garrick", "Erik le Fourbe", "Kaelen le Vif"]),
-            (EnemyRank::Boss, vec!["Commandant Draven", "Capitaine Valerius"]),
-            (EnemyRank::Legendary, vec!["L’Empereur Noir"]),
-        ])),
-    ])
+#[derive(Deserialize)]
+struct EnemyRow {
+    r#type: EnemyType,
+    rank: EnemyRank,
+    names: Vec<String>,
+}
+
+#[derive(Deserialize)]
+struct EnemyFile {
+    enemies: Vec<EnemyRow>,
+}
+
+static ENEMY_DB: Lazy<Vec<EnemyRow>> = Lazy::new(|| {
+    let p = Path::new("assets/enemies.toml");
+    let s = fs::read_to_string(p).expect("assets/enemies.toml manquant");
+    let f: EnemyFile = toml::from_str(&s).expect("TOML invalide");
+    f.enemies
 });
 
+fn pick_name_from_db(
+    t: EnemyType,
+    r: EnemyRank,
+    rng: &mut impl rand::Rng,
+) -> Option<String> {
+    ENEMY_DB.iter()
+        .find(|e| e.r#type == t && e.rank == r)
+        .and_then(|row| row.names.choose(rng).cloned())
+}
 
-#[derive(Debug, Eq, PartialEq, Hash, Clone, Copy)]
+
+#[derive(Debug, Eq, PartialEq, Hash, Clone, Copy, serde::Serialize, serde::Deserialize)]
 pub enum EnemyRank {
     Lambda,
     Named,
@@ -38,6 +42,7 @@ pub enum EnemyRank {
     Boss,
     Legendary,
 }
+
 
 impl EnemyRank {
     fn stat_multiplier(&self) -> f32 {
@@ -61,7 +66,7 @@ impl EnemyRank {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Hash, Clone, Copy, serde::Serialize, serde::Deserialize)]
 pub enum EnemyType {
     Gobelin,
     Skeleton,
@@ -121,12 +126,7 @@ impl Enemy {
     pub fn spawn_with_type_and_rank(enemy_type: EnemyType, rank: EnemyRank) -> Self {
         let mut rng = rand::rng();
 
-        let name = ENEMY_NAMES
-        .get(&enemy_type)
-        .and_then(|inner| inner.get(&rank)) // récupère la liste de noms
-        .and_then(|names| names.choose(&mut rng)) // pioche un nom aléatoire
-        .map(|&s| s.to_string()); // transforme &str en String
-
+        let name = pick_name_from_db(enemy_type, rank, &mut rng);
         // Stats simples pour l’exemple
         let base_hp = 10;
         let base_attack = 3;
