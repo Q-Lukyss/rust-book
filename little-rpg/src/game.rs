@@ -1,14 +1,14 @@
 pub mod menu;
 pub mod exploration;
 pub mod combat;
-pub mod inventory;   // <- garde ce nom si ton fichier est game/inventory.rs
+pub mod inventory;
 pub mod helpers;
 
 use crate::player::Player;
 use crate::state::GameState;
 
 pub fn run_game_loop(mut player: Player) {
-    let mut state = GameState::Menu; // mutable car on va le changer
+    let mut state = GameState::Menu;
 
     loop {
         state = match state {
