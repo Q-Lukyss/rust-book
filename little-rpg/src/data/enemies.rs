@@ -19,9 +19,10 @@ struct EnemyFile {
 
 // Charge assets/enemies.toml une seule fois
 pub static ENEMY_DB: Lazy<Vec<EnemyRow>> = Lazy::new(|| {
-    let p = Path::new("assets/enemies.toml");
-    let s = fs::read_to_string(p).expect("assets/enemies.toml manquant");
-    let f: EnemyFile = toml::from_str(&s).expect("TOML invalide");
+    // Embarque le contenu du fichier dans une constante à la compilation
+    const RAW_TOML: &str = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/enemies.toml"));
+    // Parse le TOML
+    let f: EnemyFile = toml::from_str(RAW_TOML).expect("TOML invalide");
     f.enemies
 });
 
