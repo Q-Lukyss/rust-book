@@ -10,3 +10,8 @@ Ce repo regroupe les exercices et programmes que j'ai réalisé dans le cadre de
 cd <Nom du dossier>
 cargo run
 ```
+
+Pour le dossier test-in-rust
+```
+cargo test
+```
