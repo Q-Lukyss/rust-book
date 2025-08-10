@@ -13,7 +13,7 @@ fn main() {
             process::exit(1);
         }
     );
-
+    
     if let Err(e) = run(config) {
         println!("Erreur de l'Application: {e}");
         process::exit(1);
@@ -44,20 +44,23 @@ pub struct Config {
 
 impl Config {
     fn build (args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("Pas assez d'arguments.")
+        let mut ignore_case = env::var("IGNORE_CASE").is_ok();
+
+        match args.len() {
+            3 | 4 => {
+                let query = args[1].clone();
+                let file_path = args[2].clone();
+                if args.len() == 4 && (args[3] == "-i" || args[3] == "--insensitive"){
+                    ignore_case = true;
+                }
+                Ok( Config {
+                    query,
+                    file_path,
+                    ignore_case
+                })
+            }
+            n if n < 3 => return Err("Pas assez d'arguments."),
+            _ => return Err("Trop d'arguments."),
         }
-
-        // On commence a index 1 car 0 est le chemin du binaire
-        let query = &args[1].clone();
-        let file_path = &args[2].clone();
-
-        let ignore_case = env::var("IGNORE_CASE").is_ok();
-
-        Ok(Config {
-            query : query.to_string(),
-            file_path : file_path.to_string(),
-            ignore_case,
-        })
     }
 }
