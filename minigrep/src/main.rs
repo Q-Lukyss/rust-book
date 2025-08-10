@@ -9,13 +9,13 @@ fn main() {
     
     let config = Config::build(&args)
         .unwrap_or_else(|err| {
-            println!("Probleme en parsant les arguments: {err}");
+            eprintln!("Probleme en parsant les arguments: {err}");
             process::exit(1);
         }
     );
     
     if let Err(e) = run(config) {
-        println!("Erreur de l'Application: {e}");
+        eprintln!("Erreur de l'Application: {e}");
         process::exit(1);
     }
 }
