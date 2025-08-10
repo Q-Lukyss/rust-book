@@ -11,7 +11,25 @@ cd <Nom du dossier>
 cargo run
 ```
 
-Pour le dossier test-in-rust
+### test-in-rust
 ```
 cargo test
+```
+
+### minigrep
+
+#### Powershell
+
+Lancer avec IGNORE_CASE
+
+```
+$Env:IGNORE_CASE=1; cargo run -- to poem.txt
+```
+L'Enlever
+```
+Remove-Item Env:IGNORE_CASE
+```
+#### Linux
+```
+IGNORE_CASE=1 cargo run -- to poem.txt
 ```
