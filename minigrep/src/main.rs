@@ -1,8 +1,7 @@
 
 use std::env;
 use std::process;
-use std::error::Error;
-use minigrep::{search, search_case_insensitive, Config, run};
+use minigrep::{Config, run};
 fn main() {
     let args: Vec<String> = env::args().collect();
     
